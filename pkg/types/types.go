@@ -56,4 +56,4 @@ type Account struct {
 	ID		int64
 	Phone	Phone
 	Balance	Money
-}
+}	
