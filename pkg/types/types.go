@@ -32,6 +32,7 @@ type PAN string
 // Payment представляет информацию о платеже.
 type Payment struct{
 	ID			string
+	AccountID	int64
 	Amount		Money
 	Category	PaymentCategory
 	Status		PaymentStatus
@@ -56,4 +57,45 @@ type Account struct {
 	ID		int64
 	Phone	Phone
 	Balance	Money
+}
+
+type erorr interface{
+	Error() string
+}
+
+type Error string
+
+func (e Error) Error() string {
+	return string(e)
+}
+
+
+type Messenger interface {
+	Send(message string) bool
+	Reseive() (message string, ok bool)
+}
+
+type Telegram struct{
+
+}
+
+func (t *Telegram) Send(message string) bool {
+	return true
+}
+
+func (t *Telegram) Reseive() (message string, ok bool) {
+	return "", true
+}
+
+
+func New (text string) error {
+	return &errorString{text}
+}
+
+type errorString struct {
+	s string
+}
+
+func (e *errorString) Error() string {
+	return e.s
 }
